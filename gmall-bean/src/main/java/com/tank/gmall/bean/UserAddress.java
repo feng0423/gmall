@@ -11,16 +11,16 @@ public class UserAddress implements Serializable {
 
     @Column
     @Id
-    private String id;
+    private String id; //编号
     @Column
-    private String userAddress;
+    private String userAddress; //用户地址
     @Column
-    private String userId;
+    private String userId; //用户id
     @Column
-    private String consignee;
+    private String consignee;//收件人
     @Column
-    private String phoneNum;
+    private String phoneNum;//联系方式
     @Column
-    private String isDefault;
+    private String isDefault;//是否是默认
 
 }
