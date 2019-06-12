@@ -26,7 +26,11 @@ public class FileUploadController {
     @PostMapping("/fileUpload")
     public String fileUpload(@RequestParam("file") MultipartFile file){
         //上传图片,保存到指定目录
-        String imag = UploadUtil.QI_PATH + UploadUtil.uploadQiniuyun(file);
-        return imag;
+        String imgUrl = null;
+        if(file!=null){
+            System.out.println("multipartFile = " + file.getName()+"|"+file.getSize());
+            imgUrl=UploadUtil.QI_PATH + UploadUtil.uploadQiniuyun(file);
+        }
+        return imgUrl;
     }
 }

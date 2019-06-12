@@ -1,9 +1,11 @@
 package com.tank.gmall.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.tank.gmall.bean.BaseSaleAttr;
 import com.tank.gmall.bean.SpuInfo;
 import com.tank.gmall.service.SpuManagerService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,10 +25,24 @@ public class SpuManagerController {
 
     @RequestMapping("spuList")
     @ResponseBody
-    public List<SpuInfo> getSpuInfoList(String catalog3Id){
+    public List<SpuInfo> getSpuInfoList(String catalog3Id) {
         SpuInfo spuInfo = new SpuInfo();
         spuInfo.setCatalog3Id(catalog3Id);
         List<SpuInfo> spuInfoList = spuManagerService.getSpuInfoList(spuInfo);
         return spuInfoList;
     }
+
+    @RequestMapping("baseSaleAttrList")
+    @ResponseBody
+    public List<BaseSaleAttr> getBaseSaleAttrList() {
+        return spuManagerService.getBaseSaleAttrList();
+    }
+
+    @PostMapping("saveSpuInfo")
+    @ResponseBody
+    public String saveSpuInfo(SpuInfo spuInfo) {
+        spuManagerService.saveSpuInfo(spuInfo);
+        return "success";
+    }
+
 }

@@ -26,4 +26,9 @@ public class ManagerController {
     public String getSpuListPage() {
         return "spuListPage";
     }
+
+    @RequestMapping("spuSaleAttrPage")
+    public String getSpuSaleAttrPage() {
+        return "spuSaleAttrPage";
+    }
 }

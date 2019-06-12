@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <!-- <div th:include="spuSaleAttrPage"></div>-->
+        <div th:include="spuSaleAttrPage"></div>
 
     </form>
 </div>
@@ -60,17 +60,15 @@
     <a href="#" class="easyui-linkbutton" onclick="closeSpu()">关 闭</a>
 </div>
 <script type="text/javascript">
-    function initSpuInfoDlg(spuInfo) {
+    function initSpuInfoDlg() {
+        var spuInfo = '';
         //打开对话框
         $('#spu_dlg').dialog("open");
         console.log("初始化文本" + spuInfo);
-
         //初始化表单
         initSpuForm(spuInfo);
-
         //初始化图片表格
         initSpuImgListDatagrid(spuInfo);
-
         //初始化上传控件
         initUploader();
 
@@ -151,6 +149,7 @@
             spuImgDg.datagrid({url: "spuImageList?spuId=" + spuInfo.id})
         }
     }
+
     /*初始化上传控件*/
     function initUploader() {
         console.log("初始化上传控件");
@@ -215,26 +214,34 @@
         $('#spuImgUploadBtn').click(function () {
             console.log("开始上传");
             if (spuImgUploader.getFiles().length <= 0) {
-                $.messager().alert('警告', '没有需要上传的文件', 'warning');
+                $.messager.alert('警告', '没有需要上传的文件', 'warning');
                 return;
             }
             spuImgUploader.upload();
         });
     }
-    function initSpuSaleAttrListDatagrid(spuId){
-        var spuSaleAttrDg =$('#spuSaleAttrDg').datagrid('loadData', { total: 0, rows: [] });
+
+    /*销售属性初始化*/
+    function initSpuSaleAttrListDatagrid(spuInfo) {
+        var spuSaleAttrDg = $('#spuSaleAttrDg').datagrid('loadData', {total: 0, rows: []});
         spuSaleAttrDg.datagrid({
             idField: 'saleAttrId',
-            columns:[[
-                { field:'id',title:'id',hidden:true },
-                { field:'saleAttrId',title:'销售属性Id',width:'25%'},
-                { field:'saleAttrName',title:'销售属性名称',width:'25%'},
-                { field:'spuSaleAttrValueJson',title:'销售属性值暂存', width:'50%'}
+            columns: [[
+                {field: 'id', title: 'id', hidden: true},
+                {field: 'saleAttrId', title: '销售属性Id', width: '25%'},
+                {field: 'saleAttrName', title: '销售属性名称', width: '25%'},
+                {field: 'spuSaleAttrValueJson', title: '销售属性值暂存', width: '50%'}
             ]]
         });
-        if(spuInfo){
-            spuSaleAttrDg.datagrid({url:"spuSaleAttrList?spuId="+spuInfo.id});
+        if (spuInfo) {
+            spuSaleAttrDg.datagrid({url: "spuSaleAttrList?spuId=" + spuInfo.id});
         }
+    }
+
+    /*添加销售属性*/
+    function addSpuSaleAttr() {
+        /*初始化页面*/
+        initSpuSaleAttrDlg();
     }
 </script>
 </body>
